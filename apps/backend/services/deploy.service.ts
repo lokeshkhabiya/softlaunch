@@ -1,6 +1,6 @@
 import crypto from "crypto";
-import { activeSandboxes } from "@appwit/sandbox";
-import { serverConfig, isVercelConfigured } from "@appwit/config/server";
+import { activeSandboxes } from "@softlaunch/sandbox";
+import { serverConfig, isVercelConfigured } from "@softlaunch/config/server";
 import { prisma } from "../lib/prisma";
 
 const VERCEL_API = "https://api.vercel.com";
@@ -414,7 +414,7 @@ export async function deployToVercel(
     .replace(/-{2,}/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 80) || "project";
-  const sanitizedName = `appwit-${cleaned}-${project.id.slice(0, 8)}`;
+  const sanitizedName = `softlaunch-${cleaned}-${project.id.slice(0, 8)}`;
 
   const isRedeploy = !!project.vercelProjectId;
 

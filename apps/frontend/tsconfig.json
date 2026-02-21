@@ -1,5 +1,5 @@
 {
-  "extends": "@appwit/typescript-config/nextjs.json",
+  "extends": "@softlaunch/typescript-config/nextjs.json",
   "compilerOptions": {
     "paths": {
       "@/*": ["./*"]

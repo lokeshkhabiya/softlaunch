@@ -1,7 +1,7 @@
 import type { Response } from "express";
 import type { AuthRequest } from "../middleware/auth";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
-import { serverConfig, isR2Configured } from "@appwit/config/server";
+import { serverConfig, isR2Configured } from "@softlaunch/config/server";
 import { prisma } from "../lib/prisma";
 import {
   createProject,

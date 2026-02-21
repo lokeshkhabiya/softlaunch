@@ -43,7 +43,7 @@ import {
   isR2Configured,
   ensureR2Mounted,
   getProjectCodeHash,
-} from "@appwit/storage";
+} from "@softlaunch/storage";
 import {
   captureAndUploadScreenshot,
   isScreenshotEnabled,
@@ -56,7 +56,7 @@ import {
   POST_STREAMING_SHUTDOWN_MS,
   MAX_STREAMING_WAIT_MS,
   BACKUP_DEBOUNCE_MS,
-} from "@appwit/sandbox";
+} from "@softlaunch/sandbox";
 
 // Sandbox timeout extension before backup (5 minutes)
 const SANDBOX_TIMEOUT_EXTENSION_MS = 5 * 60 * 1000;

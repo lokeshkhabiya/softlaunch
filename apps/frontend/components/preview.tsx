@@ -100,7 +100,7 @@ export default function Preview({ preview_url, isStreaming = false }: PreviewPro
         console.error('[Preview] Iframe failed to load:', displayUrl);
     };
 
-    const iframeSrc = `${displayUrl}${displayUrl.includes("?") ? "&" : "?"}__appwit_reload=${refreshKey}`;
+    const iframeSrc = `${displayUrl}${displayUrl.includes("?") ? "&" : "?"}__softlaunch_reload=${refreshKey}`;
 
     return (
         <div className="w-full h-full relative">

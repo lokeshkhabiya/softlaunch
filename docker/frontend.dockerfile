@@ -16,7 +16,7 @@ COPY packages/config ./packages/config
 COPY packages/typescript-config ./packages/typescript-config
 
 COPY apps/frontend ./apps/frontend
-RUN bun run build --filter=@appwit/frontend
+RUN bun run build --filter=@softlaunch/frontend
 
 FROM node:20-alpine AS runner
 
