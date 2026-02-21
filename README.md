@@ -26,8 +26,8 @@ Softlaunch enables users to generate complete web applications from natural lang
 
 ### Demo Video
 
-<a href="https://youtu.be/AUgreVFX-C8" target="_blank">
-  <img src="https://img.youtube.com/vi/AUgreVFX-C8/maxresdefault.jpg" width="560" alt="Softlaunch Demo Video">
+<a href="https://youtu.be/I0sMbfvHwVI" target="_blank">
+  <img src="https://img.youtube.com/vi/I0sMbfvHwVI/maxresdefault.jpg" width="560" alt="Softlaunch Demo Video">
 </a>
 
 ---
