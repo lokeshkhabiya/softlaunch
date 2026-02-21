@@ -24,6 +24,12 @@ Softlaunch enables users to generate complete web applications from natural lang
 - **LLM Integration** supporting Anthropic Claude and OpenAI models
 - **Real-time Streaming** for progressive file generation feedback
 
+### Demo Video
+
+<a href="https://youtu.be/AUgreVFX-C8" target="_blank">
+  <img src="https://img.youtube.com/vi/AUgreVFX-C8/maxresdefault.jpg" width="560" alt="Softlaunch Demo Video">
+</a>
+
 ---
 
 ## Architecture
