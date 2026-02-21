@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import pg from "pg";
-import { serverConfig } from "@appwit/config/server";
+import { serverConfig } from "@softlaunch/config/server";
 
 const pool = new pg.Pool({ connectionString: serverConfig.database.url });
 const adapter = new PrismaPg(pool);

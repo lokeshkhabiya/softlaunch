@@ -1,7 +1,7 @@
 // Download handler - GET /download/:sandboxId
 
 import type { Request, Response } from "express";
-import { activeSandboxes } from "@appwit/sandbox";
+import { activeSandboxes } from "@softlaunch/sandbox";
 import { prisma } from "@/lib/prisma";
 
 export async function handleDownload(req: Request, res: Response) {

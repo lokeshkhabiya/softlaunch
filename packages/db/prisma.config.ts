@@ -1,4 +1,4 @@
-import { serverConfig } from '@appwit/config'
+import { serverConfig } from '@softlaunch/config'
 import { defineConfig } from 'prisma/config'
 
 export default defineConfig({

@@ -12,7 +12,7 @@ import {
   handleGetMessages,
 } from "../controllers/prompt";
 
-export { activeSandboxes } from "@appwit/sandbox";
+export { activeSandboxes } from "@softlaunch/sandbox";
 
 const router = Router();
 

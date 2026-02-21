@@ -1,5 +1,5 @@
 {
-  "name": "@appwit/backend",
+  "name": "@softlaunch/backend",
   "module": "index.ts",
   "type": "module",
   "private": true,
@@ -8,7 +8,7 @@
     "start": "bun run index.ts"
   },
   "devDependencies": {
-    "@appwit/typescript-config": "workspace:*",
+    "@softlaunch/typescript-config": "workspace:*",
     "@types/bcryptjs": "^3.0.0",
     "@types/bun": "latest",
     "@types/jsonwebtoken": "^9.0.10"
@@ -17,11 +17,11 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@appwit/agent": "workspace:*",
-    "@appwit/config": "workspace:*",
-    "@appwit/db": "workspace:*",
-    "@appwit/sandbox": "workspace:*",
-    "@appwit/storage": "workspace:*",
+    "@softlaunch/agent": "workspace:*",
+    "@softlaunch/config": "workspace:*",
+    "@softlaunch/db": "workspace:*",
+    "@softlaunch/sandbox": "workspace:*",
+    "@softlaunch/storage": "workspace:*",
     "@aws-sdk/client-s3": "^3.946.0",
     "@langchain/core": "^1.1.1",
     "@types/cors": "^2.8.19",

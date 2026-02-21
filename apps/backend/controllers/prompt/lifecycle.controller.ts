@@ -7,8 +7,8 @@ import {
   isR2Configured,
   ensureR2Mounted,
   getProjectCodeHash,
-} from "@appwit/storage";
-import { activeSandboxes, BACKUP_DEBOUNCE_MS } from "@appwit/sandbox";
+} from "@softlaunch/storage";
+import { activeSandboxes, BACKUP_DEBOUNCE_MS } from "@softlaunch/sandbox";
 import { scheduleShutdown, cancelPendingShutdown } from "@/services";
 
 // POST /refresh/:sandboxId

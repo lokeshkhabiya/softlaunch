@@ -16,7 +16,7 @@ import {
   PutObjectCommand,
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
-import { serverConfig, isR2Configured } from "@appwit/config/server";
+import { serverConfig, isR2Configured } from "@softlaunch/config/server";
 
 const { r2 } = serverConfig;
 
@@ -61,6 +61,12 @@ export async function captureAndUploadScreenshot(
       "[SCREENSHOT] R2_PUBLIC_URL not set, skipping screenshot (thumbnails won't be accessible without it)"
     );
     return null;
+  }
+
+  if (r2.publicUrl.includes(".r2.cloudflarestorage.com")) {
+    console.warn(
+      "[SCREENSHOT] R2_PUBLIC_URL appears to be a private S3 endpoint. Thumbnails may not be publicly accessible."
+    );
   }
 
   try {

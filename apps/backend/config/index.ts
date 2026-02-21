@@ -1,4 +1,4 @@
-import { serverConfig } from "@appwit/config/server";
+import { serverConfig } from "@softlaunch/config/server";
 
 export const config = {
   jwt: serverConfig.jwt,

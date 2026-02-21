@@ -1,5 +1,5 @@
 {
-    "name": "@appwit/sandbox",
+    "name": "@softlaunch/sandbox",
     "module": "index.ts",
     "type": "module",
     "private": true,

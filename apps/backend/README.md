@@ -1,4 +1,4 @@
-# AppWit backend
+# Softlaunch backend
 
 To install dependencies:
 

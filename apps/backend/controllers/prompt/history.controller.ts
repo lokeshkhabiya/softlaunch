@@ -2,7 +2,7 @@
 
 import type { Request, Response } from "express";
 import { HumanMessage, AIMessage, SystemMessage, ToolMessage } from "@langchain/core/messages";
-import { activeSandboxes } from "@appwit/sandbox";
+import { activeSandboxes } from "@softlaunch/sandbox";
 
 export async function handleGetHistory(req: Request, res: Response) {
     const sandboxId = req.params.sandboxId;

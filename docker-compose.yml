@@ -1,40 +1,40 @@
 services:
   db:
     image: postgres:16-alpine
-    container_name: appwit-db
+    container_name: softlaunch-db
     restart: unless-stopped
     env_file:
       - .env
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-appwit_db}
-      POSTGRES_USER: ${POSTGRES_USER:-appwit}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-appwit_password}
+      POSTGRES_DB: ${POSTGRES_DB:-softlaunch_db}
+      POSTGRES_USER: ${POSTGRES_USER:-softlaunch}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-softlaunch_password}
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - appwit-network
+      - softlaunch-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-appwit}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-softlaunch}"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 10s
 
   backend:
-    image: ${BACKEND_IMAGE:-appwit/backend:latest}
+    image: ${BACKEND_IMAGE:-softlaunch/backend:latest}
     build:
       context: .
       dockerfile: docker/backend.dockerfile
-    container_name: appwit-backend
+    container_name: softlaunch-backend
     restart: unless-stopped
     env_file:
       - .env
     environment:
       NODE_ENV: ${NODE_ENV:-production}
       PORT: ${BACKEND_PORT:-4000}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-appwit}:${POSTGRES_PASSWORD:-appwit_password}@db:5432/${POSTGRES_DB:-appwit_db}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-softlaunch}:${POSTGRES_PASSWORD:-softlaunch_password}@db:5432/${POSTGRES_DB:-softlaunch_db}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://frontend:3000}
     ports:
       - "${BACKEND_PORT:-4000}:4000"
@@ -42,7 +42,7 @@ services:
       db:
         condition: service_healthy
     networks:
-      - appwit-network
+      - softlaunch-network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
       interval: 300s
@@ -51,13 +51,13 @@ services:
       start_period: 40s
 
   frontend:
-    image: ${FRONTEND_IMAGE:-appwit/frontend:latest}
+    image: ${FRONTEND_IMAGE:-softlaunch/frontend:latest}
     build:
       context: .
       dockerfile: docker/frontend.dockerfile
       args:
         NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL:-http://localhost:4000}
-    container_name: appwit-frontend
+    container_name: softlaunch-frontend
     restart: unless-stopped
     env_file:
       - .env
@@ -67,10 +67,10 @@ services:
       backend:
         condition: service_healthy
     networks:
-      - appwit-network
+      - softlaunch-network
 
 networks:
-  appwit-network:
+  softlaunch-network:
     driver: bridge
 
 volumes:

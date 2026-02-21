@@ -43,7 +43,7 @@ import {
   isR2Configured,
   ensureR2Mounted,
   getProjectCodeHash,
-} from "@appwit/storage";
+} from "@softlaunch/storage";
 import {
   captureAndUploadScreenshot,
   isScreenshotEnabled,
@@ -56,7 +56,7 @@ import {
   POST_STREAMING_SHUTDOWN_MS,
   MAX_STREAMING_WAIT_MS,
   BACKUP_DEBOUNCE_MS,
-} from "@appwit/sandbox";
+} from "@softlaunch/sandbox";
 
 // Sandbox timeout extension before backup (5 minutes)
 const SANDBOX_TIMEOUT_EXTENSION_MS = 5 * 60 * 1000;
@@ -215,6 +215,17 @@ async function performBackup(
   if (session.isBackingUp) {
     console.log(
       `[BACKUP] Backup already in progress for ${sandboxId}, skipping`
+    );
+    return false;
+  }
+
+  // Defense-in-depth: never backup while agent is actively generating code.
+  // The orchestrator writes files progressively, so backing up mid-stream
+  // would capture a partial state. Callers should check isStreaming before
+  // calling, but this guard prevents any code path from doing so accidentally.
+  if (session.isStreaming) {
+    console.log(
+      `[BACKUP] Agent is streaming for ${sandboxId}, deferring backup to avoid partial state`
     );
     return false;
   }

@@ -1,5 +1,5 @@
 import type { Sandbox } from "e2b";
-import { serverConfig, isR2Configured } from "@appwit/config/server";
+import { serverConfig, isR2Configured } from "@softlaunch/config/server";
 
 export const R2_ACCOUNT_ID = serverConfig.r2.accountId;
 export const R2_ACCESS_KEY_ID = serverConfig.r2.accessKeyId;
