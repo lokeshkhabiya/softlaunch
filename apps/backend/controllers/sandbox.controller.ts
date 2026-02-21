@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { activeSandboxes } from "@appwit/sandbox";
+import { activeSandboxes } from "@softlaunch/sandbox";
 import {
   scheduleShutdown,
   handleTabVisibilityChange,

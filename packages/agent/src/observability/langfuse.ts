@@ -13,7 +13,7 @@
 
 import { Langfuse } from "langfuse";
 import { CallbackHandler } from "langfuse-langchain";
-import { serverConfig, isLangfuseConfigured } from "@appwit/config/server";
+import { serverConfig, isLangfuseConfigured } from "@softlaunch/config/server";
 
 let langfuseInstance: Langfuse | null = null;
 

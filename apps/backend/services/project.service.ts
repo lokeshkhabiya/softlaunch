@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma";
-import { ProjectStatus } from "@appwit/db";
+import { ProjectStatus } from "@softlaunch/db";
 import { deleteThumbnail } from "../lib/screenshot";
 
 export class ProjectServiceError extends Error {
@@ -150,7 +150,7 @@ export const deleteProject = async (
   }
 
   if (project.r2BackupPath) {
-    const { deleteProjectFromR2 } = await import("@appwit/storage");
+    const { deleteProjectFromR2 } = await import("@softlaunch/storage");
     await deleteProjectFromR2(userId, projectId);
   }
 

@@ -7,7 +7,7 @@ import {
   BaseMessage,
 } from "@langchain/core/messages";
 import { prisma } from "@/lib/prisma";
-import { MessageRole } from "@appwit/db";
+import { MessageRole } from "@softlaunch/db";
 
 export async function getOrCreateChat(projectId: string): Promise<string> {
   let chat = await prisma.chat.findFirst({

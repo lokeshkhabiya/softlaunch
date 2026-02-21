@@ -54,13 +54,13 @@ import {
   streamMultiAgentOrchestrator,
   INITIAL_SYSTEM_PROMPT,
   CONTEXT_SYSTEM_PROMPT,
-} from "@appwit/agent";
+} from "@softlaunch/agent";
 import { prisma } from "@/lib/prisma";
-import { MessageRole } from "@appwit/db";
+import { MessageRole } from "@softlaunch/db";
 import type { AuthRequest } from "@/middleware/auth";
-import { initializeR2ForSandbox, isR2Configured } from "@appwit/storage";
-import { activeSandboxes } from "@appwit/sandbox";
-import { serverConfig } from "@appwit/config/server";
+import { initializeR2ForSandbox, isR2Configured } from "@softlaunch/storage";
+import { activeSandboxes } from "@softlaunch/sandbox";
+import { serverConfig } from "@softlaunch/config/server";
 import {
   initializeCodeHash,
   startAutoBackup,

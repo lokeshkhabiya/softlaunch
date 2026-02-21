@@ -1,4 +1,4 @@
-import { themes } from "@appwit/agent";
+import { themes } from "@softlaunch/agent";
 
 const VALID_THEMES = new Set(Object.keys(themes));
 

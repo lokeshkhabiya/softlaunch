@@ -1,5 +1,5 @@
 {
-  "name": "@appwit/config",
+  "name": "@softlaunch/config",
   "module": "index.ts",
   "type": "module",
   "private": true,
@@ -12,7 +12,7 @@
     "typescript": "^5"
   },
   "devDependencies": {
-    "@appwit/typescript-config": "workspace:*",
+    "@softlaunch/typescript-config": "workspace:*",
     "@types/bun": "latest"
   },
   "dependencies": {

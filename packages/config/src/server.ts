@@ -89,7 +89,7 @@ function loadConfig(): ServerConfig {
     database: {
       url:
         process.env.DATABASE_URL ||
-        "postgresql://appwit:appwit_password@localhost:5432/appwit_db",
+        "postgresql://softlaunch:softlaunch_password@localhost:5432/softlaunch_db",
     },
 
     r2: {

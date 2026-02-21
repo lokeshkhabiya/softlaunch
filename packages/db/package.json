@@ -1,5 +1,5 @@
 {
-  "name": "@appwit/db",
+  "name": "@softlaunch/db",
   "module": "index.ts",
   "type": "module",
   "private": true,
@@ -12,14 +12,14 @@
     "push": "bunx prisma db push"
   },
   "devDependencies": {
-    "@appwit/typescript-config": "workspace:*",
+    "@softlaunch/typescript-config": "workspace:*",
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
-    "@appwit/config": "workspace:*",
+    "@softlaunch/config": "workspace:*",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "@types/pg": "^8.16.0",

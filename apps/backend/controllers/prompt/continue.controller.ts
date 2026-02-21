@@ -1,8 +1,8 @@
 import type { Response } from "express";
-import { streamMultiAgentOrchestrator, CONTEXT_SYSTEM_PROMPT } from "@appwit/agent";
-import { MessageRole } from "@appwit/db";
+import { streamMultiAgentOrchestrator, CONTEXT_SYSTEM_PROMPT } from "@softlaunch/agent";
+import { MessageRole } from "@softlaunch/db";
 import type { AuthRequest } from "@/middleware/auth";
-import { activeSandboxes } from "@appwit/sandbox";
+import { activeSandboxes } from "@softlaunch/sandbox";
 import {
     saveMessage,
     generateCodeSummary,

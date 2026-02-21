@@ -1,4 +1,4 @@
-# Appwit
+# Softlaunch
 
 An AI-powered code generation platform built as a Turborepo monorepo. Users describe what they want to build, and the system generates production-ready code files in an isolated sandbox environment.
 
@@ -17,7 +17,7 @@ An AI-powered code generation platform built as a Turborepo monorepo. Users desc
 
 ## Overview
 
-Appwit enables users to generate complete web applications from natural language prompts. The platform leverages:
+Softlaunch enables users to generate complete web applications from natural language prompts. The platform leverages:
 
 - **LangGraph State Machine** for orchestrating multi-step AI workflows
 - **E2B Sandboxes** for secure, isolated code execution and file management
@@ -125,7 +125,7 @@ sequenceDiagram
 ## Project Structure
 
 ```
-appwit/
+softlaunch/
 ├── apps/
 │   ├── backend/                 # Express API server
 │   │   ├── agent/               # LangGraph orchestrator
@@ -167,8 +167,8 @@ appwit/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-org/appwit.git
-cd appwit
+git clone https://github.com/your-org/softlaunch.git
+cd softlaunch
 ```
 
 2. Install dependencies:
@@ -217,10 +217,10 @@ bun run dev
 
 ```bash
 # Backend only
-bun run dev --filter=@appwit/backend
+bun run dev --filter=@softlaunch/backend
 
 # Frontend only
-bun run dev --filter=@appwit/frontend
+bun run dev --filter=@softlaunch/frontend
 ```
 
 ### Turborepo Features

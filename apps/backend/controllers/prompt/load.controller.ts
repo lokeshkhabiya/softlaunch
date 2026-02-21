@@ -56,9 +56,9 @@ import type { Response } from "express";
 import { Sandbox } from "e2b";
 import { prisma } from "@/lib/prisma";
 import type { AuthRequest } from "@/middleware/auth";
-import { initializeR2ForSandbox, isR2Configured } from "@appwit/storage";
-import { activeSandboxes, acquireProjectLock, releaseProjectLock } from "@appwit/sandbox";
-import { serverConfig } from "@appwit/config/server";
+import { initializeR2ForSandbox, isR2Configured } from "@softlaunch/storage";
+import { activeSandboxes, acquireProjectLock, releaseProjectLock } from "@softlaunch/sandbox";
+import { serverConfig } from "@softlaunch/config/server";
 import {
   cancelPendingShutdown,
   initializeCodeHash,

@@ -16,7 +16,7 @@ import {
   PutObjectCommand,
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
-import { serverConfig, isR2Configured } from "@appwit/config/server";
+import { serverConfig, isR2Configured } from "@softlaunch/config/server";
 
 const { r2 } = serverConfig;
 

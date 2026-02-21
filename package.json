@@ -1,5 +1,5 @@
 {
-    "name": "appwit",
+    "name": "softlaunch",
     "private": true,
     "scripts": {
         "build": "bun --bun turbo run build",
