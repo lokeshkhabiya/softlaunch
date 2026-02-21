@@ -6,6 +6,104 @@ import { prisma } from "../lib/prisma";
 const VERCEL_API = "https://api.vercel.com";
 const VERCEL_FETCH_TIMEOUT_MS = 30_000; // 30s per Vercel API call
 
+interface VercelDeploymentResponse {
+  alias?: string[];
+  aliasAssigned?: boolean;
+  automaticAliases?: string[];
+  bootedAt?: number;
+  buildingAt?: number;
+  buildSkipped?: boolean;
+  createdAt?: number;
+  creator?: {
+    uid: string;
+    username: string;
+  };
+  id?: string;
+  name?: string;
+  meta?: Record<string, any>;
+  originCacheRegion?: string;
+  project?: {
+    id: string;
+    name: string;
+    framework: string;
+  };
+  public?: boolean;
+  readyState?: string;
+  regions?: string[];
+  status?: string;
+  target?: string;
+  team?: {
+    id: string;
+    name: string;
+    slug: string;
+  };
+  type?: string;
+  url?: string;
+  version?: number;
+  previewCommentsEnabled?: boolean;
+  oidcTokenClaims?: {
+    sub: string;
+    iss: string;
+    scope: string;
+    aud: string;
+    owner: string;
+    owner_id: string;
+    project: string;
+    project_id: string;
+    environment: string;
+    plan: string;
+  };
+  lambdas?: Array<{
+    id: string;
+    createdAt: number;
+    entrypoint: string;
+    readyState: string;
+    readyStateAt: number;
+    output: any[];
+  }>;
+  aliasAssignedAt?: number | null;
+  build?: {
+    env: any[];
+  };
+  builds?: any[];
+  createdIn?: string;
+  env?: any[];
+  functions?: any;
+  inspectorUrl?: string;
+  isInConcurrentBuildsQueue?: boolean;
+  isInSystemBuildsQueue?: boolean;
+  ownerId?: string;
+  plan?: string;
+  projectId?: string;
+  projectSettings?: {
+    buildCommand: string | null;
+    devCommand: string | null;
+    framework: string;
+    commandForIgnoringBuildStep: string | null;
+    installCommand: string | null;
+    outputDirectory: string | null;
+    speedInsights: {
+      id: string;
+      hasData: boolean;
+    };
+    webAnalytics: {
+      id: string;
+    };
+    nodeVersion: string;
+  };
+  routes?: any;
+  config?: {
+    version: number;
+    secureComputePrimaryRegion: string | null;
+    secureComputeFallbackRegion: string | null;
+    functionTimeout: number;
+    functionType: string;
+    functionMemoryType: string;
+    isUsingActiveCPU: boolean;
+    resourceConfig: Record<string, any>;
+  };
+}
+
 const EXCLUDE_PATTERNS = [
   "node_modules",
   ".git",
@@ -250,10 +348,12 @@ async function createDeployment(
     );
   }
 
-  const data = (await response.json()) as { url: string; id: string };
+  const data = (await response.json()) as VercelDeploymentResponse;
+
+  const previewUrl = `https://${data.project?.name}.vercel.app`;
   return {
-    url: `https://${data.url}`,
-    deploymentId: data.id,
+    url: previewUrl,
+    deploymentId: data.id ?? "",
   };
 }
 
