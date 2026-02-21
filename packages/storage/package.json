@@ -1,5 +1,5 @@
 {
-    "name": "@appwit/storage",
+    "name": "@softlaunch/storage",
     "module": "index.ts",
     "type": "module",
     "private": true,
@@ -10,12 +10,12 @@
         "typescript": "^5"
     },
     "dependencies": {
-        "@appwit/config": "workspace:*",
+        "@softlaunch/config": "workspace:*",
         "@aws-sdk/client-s3": "^3.946.0",
         "e2b": "^2.2.8"
     },
     "devDependencies": {
-        "@appwit/typescript-config": "workspace:*",
+        "@softlaunch/typescript-config": "workspace:*",
         "@types/bun": "latest"
     }
 }

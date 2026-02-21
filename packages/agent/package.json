@@ -1,5 +1,5 @@
 {
-    "name": "@appwit/agent",
+    "name": "@softlaunch/agent",
     "module": "index.ts",
     "type": "module",
     "private": true,
@@ -10,7 +10,7 @@
         "typescript": "^5"
     },
     "dependencies": {
-        "@appwit/config": "workspace:*",
+        "@softlaunch/config": "workspace:*",
         "@langchain/anthropic": "^1.3.1",
         "@langchain/core": "^1.1.1",
         "@langchain/langgraph": "^1.0.2",
@@ -22,7 +22,7 @@
         "zod": "^4.1.13"
     },
     "devDependencies": {
-        "@appwit/typescript-config": "workspace:*",
+        "@softlaunch/typescript-config": "workspace:*",
         "@types/bun": "latest"
     }
 }

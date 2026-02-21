@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma";
-import { ProjectStatus } from "@appwit/db";
+import { ProjectStatus } from "@softlaunch/db";
 import { deleteThumbnail } from "../lib/screenshot";
 
 export class ProjectServiceError extends Error {
@@ -99,6 +99,39 @@ export const getProject = async (projectId: string, userId: string) => {
   return project;
 };
 
+export const updateProject = async (
+  projectId: string,
+  userId: string,
+  data: { name?: string }
+) => {
+  const project = await prisma.project.findUnique({
+    where: { id: projectId },
+    select: { userId: true },
+  });
+
+  if (!project) {
+    throw new ProjectServiceError("Project not found", 404);
+  }
+
+  if (project.userId !== userId) {
+    throw new ProjectServiceError("Forbidden", 403);
+  }
+
+  return prisma.project.update({
+    where: { id: projectId },
+    data: {
+      ...(data.name !== undefined && { name: data.name }),
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+};
+
 export const deleteProject = async (
   projectId: string,
   userId: string
@@ -117,7 +150,7 @@ export const deleteProject = async (
   }
 
   if (project.r2BackupPath) {
-    const { deleteProjectFromR2 } = await import("@appwit/storage");
+    const { deleteProjectFromR2 } = await import("@softlaunch/storage");
     await deleteProjectFromR2(userId, projectId);
   }
 

@@ -54,13 +54,13 @@ import {
   streamMultiAgentOrchestrator,
   INITIAL_SYSTEM_PROMPT,
   CONTEXT_SYSTEM_PROMPT,
-} from "@appwit/agent";
+} from "@softlaunch/agent";
 import { prisma } from "@/lib/prisma";
-import { MessageRole } from "@appwit/db";
+import { MessageRole } from "@softlaunch/db";
 import type { AuthRequest } from "@/middleware/auth";
-import { initializeR2ForSandbox, isR2Configured } from "@appwit/storage";
-import { activeSandboxes } from "@appwit/sandbox";
-import { serverConfig } from "@appwit/config/server";
+import { initializeR2ForSandbox, isR2Configured } from "@softlaunch/storage";
+import { activeSandboxes } from "@softlaunch/sandbox";
+import { serverConfig } from "@softlaunch/config/server";
 import {
   initializeCodeHash,
   startAutoBackup,
@@ -72,16 +72,21 @@ import {
   generateProjectName,
   updateProjectName,
 } from "@/services";
+import { buildPromptWithTheme } from "@/lib/prompt-utils";
 
 const { sandbox } = serverConfig;
 
 export async function handleInitialPrompt(req: AuthRequest, res: Response) {
-  const { prompt, projectId } = req.body;
+  const { prompt, projectId, theme } = req.body;
   const userId = req.userId;
 
   // Validate required fields
   if (!projectId) {
     return res.status(400).json({ error: "projectId is required" });
+  }
+
+  if (!prompt || typeof prompt !== "string" || !prompt.trim()) {
+    return res.status(400).json({ error: "prompt is required" });
   }
 
   if (!userId) {
@@ -185,6 +190,39 @@ export async function handleInitialPrompt(req: AuthRequest, res: Response) {
     res.setHeader("X-Sandbox-URL", sandboxUrl);
     res.setHeader("X-Sandbox-ID", sandboxId);
 
+    // Detect client disconnect so the orchestrator can continue running
+    // even if the user navigates away. Without this, res.write() throws
+    // ERR_STREAM_DESTROYED which breaks the for-await loop and aborts
+    // the orchestrator mid-execution, leaving files partially written.
+    let clientDisconnected = false;
+    req.on("close", () => {
+      clientDisconnected = true;
+      console.log(`[SSE] Client disconnected for sandbox ${sandboxId}`);
+    });
+
+    function safeWrite(data: string): boolean {
+      if (clientDisconnected || res.writableEnded || res.destroyed) {
+        return false;
+      }
+      try {
+        res.write(data);
+        return true;
+      } catch {
+        clientDisconnected = true;
+        return false;
+      }
+    }
+
+    function safeEnd(): void {
+      if (!clientDisconnected && !res.writableEnded && !res.destroyed) {
+        try {
+          res.end();
+        } catch {
+          clientDisconnected = true;
+        }
+      }
+    }
+
     const session = activeSandboxes.get(sandboxId)!;
 
     // Start name generation in parallel for new projects
@@ -206,10 +244,11 @@ export async function handleInitialPrompt(req: AuthRequest, res: Response) {
 
       const createdFiles: string[] = [];
       let commandCount = 0;
+      const orchestratorPrompt = buildPromptWithTheme(prompt, theme);
 
       for await (const event of streamMultiAgentOrchestrator(
         sbx,
-        prompt,
+        orchestratorPrompt,
         systemPromptToUse
       )) {
         if (event.type === "file_created" && event.filePath) {
@@ -218,10 +257,16 @@ export async function handleInitialPrompt(req: AuthRequest, res: Response) {
         if (event.type === "executing") {
           commandCount++;
         }
-        res.write(`data: ${JSON.stringify(event)}\n\n`);
+        safeWrite(`data: ${JSON.stringify(event)}\n\n`);
       }
 
       session.isStreaming = false;
+
+      if (clientDisconnected) {
+        console.log(
+          `[SSE] Client left during streaming for ${sandboxId}, but orchestrator completed successfully (${createdFiles.length} files)`
+        );
+      }
 
       const summary = generateCodeSummary(
         createdFiles,
@@ -244,7 +289,7 @@ export async function handleInitialPrompt(req: AuthRequest, res: Response) {
           const generatedName = await namePromise;
           if (generatedName) {
             await updateProjectName(projectId, generatedName);
-            res.write(
+            safeWrite(
               `data: ${JSON.stringify({ type: "project_name", name: generatedName })}\n\n`
             );
           } else {
@@ -255,20 +300,20 @@ export async function handleInitialPrompt(req: AuthRequest, res: Response) {
         }
       }
 
-      res.write(
+      safeWrite(
         `data: ${JSON.stringify({ type: "summary", message: summary })}\n\n`
       );
-      res.write(
+      safeWrite(
         `data: ${JSON.stringify({ type: "done", sandboxUrl, sandboxId })}\n\n`
       );
-      res.end();
+      safeEnd();
     } catch (orchestratorError) {
       session.isStreaming = false;
       console.error("Error during orchestration:", orchestratorError);
-      res.write(
+      safeWrite(
         `data: ${JSON.stringify({ type: "error", message: "Orchestration error occurred" })}\n\n`
       );
-      res.end();
+      safeEnd();
     }
   } catch (error) {
     console.error("Error creating sandbox:", error);

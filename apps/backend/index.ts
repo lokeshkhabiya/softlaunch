@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { serverConfig } from "@appwit/config/server";
+import { serverConfig } from "@softlaunch/config/server";
 import routes from "./routes";
 import { loggerMiddleware } from "./middleware/logger";
 
@@ -8,7 +8,7 @@ const app = express();
 
 const corsOrigins = process.env.CORS_ORIGINS
     ? process.env.CORS_ORIGINS.split(",").map((o) => o.trim())
-    : ["http://localhost:3000", "http://appwit.jagjeevan.me"];
+    : ["http://localhost:3000", "http://softlaunch.lokeshh.com"];
 
 app.use(cors({
     origin: corsOrigins,

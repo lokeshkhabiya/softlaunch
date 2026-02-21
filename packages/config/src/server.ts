@@ -89,7 +89,7 @@ function loadConfig(): ServerConfig {
     database: {
       url:
         process.env.DATABASE_URL ||
-        "postgresql://appwit:appwit_password@localhost:5432/appwit_db",
+        "postgresql://softlaunch:softlaunch_password@localhost:5432/softlaunch_db",
     },
 
     r2: {
@@ -123,6 +123,11 @@ function loadConfig(): ServerConfig {
     session: {
       expiryDays: parseNumber(process.env.SESSION_EXPIRY_DAYS, 7),
     },
+
+    vercel: {
+      token: process.env.VERCEL_TOKEN,
+      teamId: process.env.VERCEL_TEAM_ID,
+    },
   };
 }
 
@@ -143,6 +148,10 @@ export function isR2Configured(): boolean {
 export function isLangfuseConfigured(): boolean {
   const { langfuse } = serverConfig;
   return !!(langfuse.publicKey && langfuse.secretKey);
+}
+
+export function isVercelConfigured(): boolean {
+  return !!serverConfig.vercel.token;
 }
 
 export function isGoogleAuthConfigured(): boolean {

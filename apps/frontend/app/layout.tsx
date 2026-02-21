@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Appwit",
+  title: "Softlaunch",
   description: "AI-powered code generation",
 };
 

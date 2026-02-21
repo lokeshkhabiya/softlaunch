@@ -60,7 +60,7 @@ export default function Navbar() {
           href="/"
           className="text-white font-semibold text-xl hover:opacity-80 transition-opacity"
         >
-          Appwit
+          Softlaunch
         </Link>*/}
 
         {/* Right side */}
